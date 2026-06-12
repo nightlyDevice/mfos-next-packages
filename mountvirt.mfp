@@ -1,5 +1,5 @@
 :mountvirt
-if not exist "%userMods%/devtools.mfm" (
+if not exist "%disk0p1%\devtools.mcm" (
     echo DevTools not found.
     echo [%command%] ERROR: devTools missing >>"%logfile%"
     goto :eof
