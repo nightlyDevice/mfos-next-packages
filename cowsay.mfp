@@ -5,37 +5,38 @@
 setlocal EnableExtensions EnableDelayedExpansion
 
 :: ask for user input
-set /P "input=Cow says: "
+set /p "input=Cow says: "
 
 :: get string length to calculate the text box
 
-set "Length=0"
-if not defined input goto OutputLength
-:GetLength
-if not "!input:~%Length%,1!" == "" (
-    set /A Length+=1
-    goto GetLength
+set "length=0"
+if not defined input goto :outputlength
+:getlength
+if not "!input:~%length%,1!" == "" (
+    set /a length+=1
+    goto :getlength
 )
-:OutputLength
-echo [cowsay] DEBUG: length of variable input is %Length% >>"%logfile%"
+:outputlength
+echo [cowsay] DEBUG: length of variable input is %length% >>"%logfile%"
 
-set "Col=%Length%"
-set /a Col+=3
-set "Char=-"
+set "col=%length%"
+set /a col+=3
+set "char=-"
+set "border="
 
-:loop
-set /a loopEx+=1
-set loop=%loop%%char%
-IF "%loopEx%" == "%col%" goto :cow
-goto :loop
+:buildloop
+set /a buildloop+=1
+set "border=%border%%char%"
+if "%buildloop%" == "%col%" goto :cow
+goto :buildloop
 
 :: main cow thing
 
 :cow
 echo.
-echo %loop%
+echo %border%
 echo ^< %input% ^>
-echo %loop%
+echo %border%
 echo       \
 echo        \
 echo.
